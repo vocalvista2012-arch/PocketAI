@@ -1,615 +1,1132 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>PocketAI — Your AI. Your Phone.</title>
+<title>PocketAI</title>
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, sans-serif;
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#070b14;
+    color:white;
+    min-height:100vh;
+}
+
+header{
+    height:70px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 7%;
+    border-bottom:1px solid #182033;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:22px;
+    font-weight:bold;
+}
+
+.logo-icon{
+    width:38px;
+    height:38px;
+    border-radius:12px;
+    background:linear-gradient(135deg,#5b5cff,#a855f7);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:20px;
+}
+
+nav{
+    display:flex;
+    gap:25px;
+}
+
+nav a{
+    color:#aeb7ca;
+    text-decoration:none;
+    cursor:pointer;
+}
+
+nav a:hover{
+    color:white;
+}
+
+.page{
+    min-height:calc(100vh - 70px);
+    padding:60px 20px;
+}
+
+.home{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+}
+
+.hero{
+    max-width:850px;
+}
+
+.badge{
+    display:inline-block;
+    padding:8px 15px;
+    border:1px solid #29334b;
+    border-radius:30px;
+    color:#b9c1d5;
+    font-size:13px;
+    margin-bottom:25px;
+    background:#0c1220;
+}
+
+h1{
+    font-size:clamp(45px,8vw,82px);
+    line-height:1;
+    margin-bottom:25px;
+}
+
+.gradient{
+    background:linear-gradient(
+        90deg,
+        #6c63ff,
+        #b45cff,
+        #54c7ff
+    );
+    -webkit-background-clip:text;
+    color:transparent;
+}
+
+.subtitle{
+    color:#aeb7ca;
+    font-size:18px;
+    line-height:1.7;
+}
+
+.buttons{
+    margin-top:35px;
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+button{
+    border:none;
+    cursor:pointer;
+    padding:14px 25px;
+    border-radius:12px;
+    font-size:15px;
+    font-weight:bold;
+}
+
+.primary{
+    color:white;
+    background:linear-gradient(
+        135deg,
+        #5b5cff,
+        #9b51e0
+    );
+}
+
+.secondary{
+    color:white;
+    background:#111827;
+    border:1px solid #29334b;
+}
+
+.features{
+    margin-top:70px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+
+.feature{
+    padding:22px;
+    background:#0f1625;
+    border:1px solid #1d2940;
+    border-radius:16px;
+}
+
+.feature-icon{
+    font-size:25px;
+    margin-bottom:12px;
+}
+
+.feature h3{
+    font-size:16px;
+    margin-bottom:8px;
+}
+
+.feature p{
+    color:#8994aa;
+    font-size:13px;
+    line-height:1.5;
+}
+
+
+/* BUILDER */
+
+.container{
+    max-width:650px;
+    margin:auto;
+}
+
+.title{
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.title h2{
+    font-size:38px;
+    margin-bottom:10px;
+}
+
+.title p{
+    color:#8994aa;
+}
+
+.card{
+    background:#0f1625;
+    border:1px solid #1d2940;
+    border-radius:20px;
+    padding:30px;
+}
+
+.group{
+    margin-bottom:22px;
+}
+
+label{
+    display:block;
+    margin-bottom:8px;
+    font-size:14px;
+    font-weight:bold;
+}
+
+input,
+select,
+textarea{
+    width:100%;
+    background:#080d18;
+    border:1px solid #27344d;
+    border-radius:10px;
+    padding:13px;
+    color:white;
+    outline:none;
+    font-size:14px;
+}
+
+textarea{
+    resize:vertical;
+    min-height:110px;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+    border-color:#7067ff;
+}
+
+.toggle-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:#080d18;
+    padding:15px;
+    border-radius:10px;
+    border:1px solid #27344d;
+}
+
+.toggle-row span{
+    color:#aeb7ca;
+    font-size:14px;
+}
+
+.toggle{
+    width:45px;
+    height:24px;
+    position:relative;
+}
+
+.toggle input{
+    display:none;
+}
+
+.slider{
+    position:absolute;
+    inset:0;
+    background:#30394c;
+    border-radius:30px;
+    cursor:pointer;
+}
+
+.slider:before{
+    content:"";
+    position:absolute;
+    width:18px;
+    height:18px;
+    left:3px;
+    top:3px;
+    background:white;
+    border-radius:50%;
+    transition:.2s;
+}
+
+.toggle input:checked + .slider{
+    background:#6c63ff;
+}
+
+.toggle input:checked + .slider:before{
+    transform:translateX(21px);
+}
+
+.form-buttons{
+    display:flex;
+    gap:10px;
+    margin-top:25px;
+}
+
+.form-buttons button{
+    flex:1;
+}
+
+
+/* MY AI */
+
+.ai-card{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    padding:18px;
+    margin-bottom:12px;
+    background:#0f1625;
+    border:1px solid #1d2940;
+    border-radius:15px;
+}
+
+.ai-icon{
+    width:50px;
+    height:50px;
+    border-radius:14px;
+    background:linear-gradient(
+        135deg,
+        #5b5cff,
+        #a855f7
+    );
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:24px;
+}
+
+.ai-info{
+    flex:1;
+}
+
+.ai-info h3{
+    margin-bottom:5px;
+}
+
+.ai-info p{
+    color:#8994aa;
+    font-size:13px;
+}
+
+.open-btn{
+    background:#172033;
+    color:white;
+    border:1px solid #29334b;
+    padding:10px 15px;
+    border-radius:9px;
+}
+
+.delete-btn{
+    background:#2a1218;
+    color:#ff8a9a;
+    border:1px solid #51202b;
+    padding:10px 15px;
+    border-radius:9px;
+}
+
+.empty{
+    text-align:center;
+    padding:50px 20px;
+    color:#8994aa;
+}
+
+footer{
+    text-align:center;
+    color:#69748a;
+    font-size:12px;
+    padding:25px;
+    border-top:1px solid #182033;
+}
+
+@media(max-width:700px){
+
+    nav{
+        gap:12px;
     }
 
-    body {
-      background: #070b14;
-      color: white;
-      min-height: 100vh;
+    nav a{
+        font-size:12px;
     }
 
-    header {
-      height: 70px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 7%;
-      border-bottom: 1px solid #182033;
+    .features{
+        grid-template-columns:1fr;
     }
 
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 22px;
-      font-weight: bold;
+    .card{
+        padding:20px;
     }
 
-    .logo-icon {
-      width: 38px;
-      height: 38px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, #5b5cff, #a855f7);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .ai-card{
+        flex-wrap:wrap;
     }
 
-    nav {
-      display: flex;
-      gap: 25px;
-    }
+}
 
-    nav a {
-      color: #aeb7ca;
-      text-decoration: none;
-      cursor: pointer;
-    }
-
-    .hero {
-      min-height: calc(100vh - 70px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 60px 20px;
-    }
-
-    .hero-content {
-      max-width: 850px;
-    }
-
-    .badge {
-      display: inline-block;
-      padding: 8px 15px;
-      border: 1px solid #29334b;
-      border-radius: 30px;
-      color: #b9c1d5;
-      font-size: 13px;
-      margin-bottom: 25px;
-      background: #0c1220;
-    }
-
-    h1 {
-      font-size: clamp(45px, 8vw, 82px);
-      line-height: 1;
-      margin-bottom: 25px;
-    }
-
-    .gradient {
-      background: linear-gradient(90deg, #6c63ff, #b45cff, #54c7ff);
-      -webkit-background-clip: text;
-      color: transparent;
-    }
-
-    .subtitle {
-      color: #aeb7ca;
-      font-size: 18px;
-      line-height: 1.7;
-    }
-
-    .buttons {
-      margin-top: 35px;
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      flex-wrap: wrap;
-    }
-
-    button {
-      border: none;
-      cursor: pointer;
-      padding: 14px 25px;
-      border-radius: 12px;
-      font-size: 15px;
-      font-weight: bold;
-    }
-
-    .primary {
-      color: white;
-      background: linear-gradient(135deg, #5b5cff, #9b51e0);
-    }
-
-    .secondary {
-      color: white;
-      background: #111827;
-      border: 1px solid #29334b;
-    }
-
-    .features {
-      margin-top: 70px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
-    }
-
-    .feature {
-      padding: 22px;
-      background: #0f1625;
-      border: 1px solid #1d2940;
-      border-radius: 16px;
-    }
-
-    .feature-icon {
-      font-size: 25px;
-      margin-bottom: 12px;
-    }
-
-    .feature h3 {
-      font-size: 16px;
-      margin-bottom: 8px;
-    }
-
-    .feature p {
-      color: #8994aa;
-      font-size: 13px;
-      line-height: 1.5;
-    }
-
-    /* AI BUILDER */
-
-    #builder {
-      display: none;
-      min-height: calc(100vh - 70px);
-      padding: 50px 20px;
-    }
-
-    .builder-container {
-      max-width: 650px;
-      margin: auto;
-    }
-
-    .builder-title {
-      text-align: center;
-      margin-bottom: 35px;
-    }
-
-    .builder-title h2 {
-      font-size: 38px;
-      margin-bottom: 10px;
-    }
-
-    .builder-title p {
-      color: #8994aa;
-    }
-
-    .form-card {
-      background: #0f1625;
-      border: 1px solid #1d2940;
-      border-radius: 20px;
-      padding: 30px;
-    }
-
-    .form-group {
-      margin-bottom: 22px;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 8px;
-      font-size: 14px;
-      font-weight: bold;
-    }
-
-    input,
-    select,
-    textarea {
-      width: 100%;
-      background: #080d18;
-      border: 1px solid #27344d;
-      border-radius: 10px;
-      padding: 13px;
-      color: white;
-      outline: none;
-      font-size: 14px;
-    }
-
-    textarea {
-      resize: vertical;
-      min-height: 110px;
-    }
-
-    input:focus,
-    select:focus,
-    textarea:focus {
-      border-color: #7067ff;
-    }
-
-    .toggle-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: #080d18;
-      padding: 15px;
-      border-radius: 10px;
-      border: 1px solid #27344d;
-    }
-
-    .toggle-row span {
-      color: #aeb7ca;
-      font-size: 14px;
-    }
-
-    .toggle {
-      width: 45px;
-      height: 24px;
-      position: relative;
-    }
-
-    .toggle input {
-      display: none;
-    }
-
-    .slider {
-      position: absolute;
-      inset: 0;
-      background: #30394c;
-      border-radius: 30px;
-      cursor: pointer;
-    }
-
-    .slider:before {
-      content: "";
-      position: absolute;
-      width: 18px;
-      height: 18px;
-      left: 3px;
-      top: 3px;
-      background: white;
-      border-radius: 50%;
-      transition: 0.2s;
-    }
-
-    .toggle input:checked + .slider {
-      background: #6c63ff;
-    }
-
-    .toggle input:checked + .slider:before {
-      transform: translateX(21px);
-    }
-
-    .form-buttons {
-      display: flex;
-      gap: 10px;
-      margin-top: 25px;
-    }
-
-    .form-buttons button {
-      flex: 1;
-    }
-
-    footer {
-      text-align: center;
-      color: #69748a;
-      font-size: 12px;
-      padding: 25px;
-      border-top: 1px solid #182033;
-    }
-
-    @media (max-width: 700px) {
-      nav {
-        display: none;
-      }
-
-      .features {
-        grid-template-columns: 1fr;
-      }
-
-      .form-card {
-        padding: 20px;
-      }
-    }
-  </style>
+</style>
 </head>
+
 
 <body>
 
+
 <header>
 
-  <div class="logo">
-    <div class="logo-icon">✦</div>
-    PocketAI
-  </div>
+<div class="logo">
 
-  <nav>
-    <a onclick="showHome()">Home</a>
-    <a onclick="showBuilder()">Create AI</a>
-  </nav>
+<div class="logo-icon">
+✦
+</div>
+
+PocketAI
+
+</div>
+
+
+<nav>
+
+<a onclick="showHome()">
+Home
+</a>
+
+<a onclick="showMyAIs()">
+My AIs
+</a>
+
+<a onclick="showBuilder()">
+Create AI
+</a>
+
+</nav>
 
 </header>
 
 
+
 <!-- HOME -->
 
-<main class="hero" id="home">
+<section
+id="home"
+class="page home"
+>
 
-  <div class="hero-content">
+<div class="hero">
 
-    <div class="badge">
-      🔒 Private • Offline • Personal
-    </div>
+<div class="badge">
+🔒 Private • Offline • Personal
+</div>
 
-    <h1>
-      Your AI.<br>
-      <span class="gradient">Your Pocket.</span>
-    </h1>
 
-    <p class="subtitle">
-      Create your own AI chatbot, customize its name,
-      language, personality and instructions — then
-      run it directly on your phone.
-    </p>
+<h1>
 
-    <div class="buttons">
+Your AI.<br>
 
-      <button class="primary" onclick="showBuilder()">
-        + Create Your AI
-      </button>
+<span class="gradient">
+Your Pocket.
+</span>
 
-      <button class="secondary" onclick="showFeatures()">
-        Learn More
-      </button>
+</h1>
 
-    </div>
 
-    <section class="features" id="features">
+<p class="subtitle">
 
-      <div class="feature">
-        <div class="feature-icon">📱</div>
-        <h3>Runs on Your Phone</h3>
-        <p>
-          Your AI is designed to run locally on your device.
-        </p>
-      </div>
+Create your own AI chatbot, customize its
+name, language, personality and instructions —
+then run it directly on your phone.
 
-      <div class="feature">
-        <div class="feature-icon">📵</div>
-        <h3>Works Offline</h3>
-        <p>
-          Chat with your AI without an internet connection.
-        </p>
-      </div>
+</p>
 
-      <div class="feature">
-        <div class="feature-icon">🔐</div>
-        <h3>Private</h3>
-        <p>
-          Keep your conversations and AI data on your device.
-        </p>
-      </div>
 
-    </section>
+<div class="buttons">
 
-  </div>
+<button
+class="primary"
+onclick="showBuilder()"
+>
 
-</main>
++ Create Your AI
 
+</button>
 
-<!-- AI BUILDER -->
 
-<section id="builder">
+<button
+class="secondary"
+onclick="showFeatures()"
+>
 
-  <div class="builder-container">
+Learn More
 
-    <div class="builder-title">
+</button>
 
-      <h2>Create Your AI</h2>
+</div>
 
-      <p>
-        Customize your personal PocketAI assistant.
-      </p>
 
-    </div>
+<div
+class="features"
+id="features"
+>
 
+<div class="feature">
 
-    <div class="form-card">
+<div class="feature-icon">
+📱
+</div>
 
-      <div class="form-group">
+<h3>
+Runs on Your Phone
+</h3>
 
-        <label>🤖 AI Name</label>
+<p>
+Your AI is designed to run locally on your device.
+</p>
 
-        <input
-          type="text"
-          id="aiName"
-          placeholder="Example: StudyMate"
-        >
+</div>
 
-      </div>
 
+<div class="feature">
 
-      <div class="form-group">
+<div class="feature-icon">
+📵
+</div>
 
-        <label>🌐 Language</label>
+<h3>
+Works Offline
+</h3>
 
-        <select id="aiLanguage">
+<p>
+Chat with your AI without an internet connection.
+</p>
 
-          <option>English</option>
-          <option>Hindi</option>
-          <option>Punjabi</option>
-          <option>English + Hindi</option>
-          <option>English + Punjabi</option>
+</div>
 
-        </select>
 
-      </div>
+<div class="feature">
 
+<div class="feature-icon">
+🔐
+</div>
 
-      <div class="form-group">
+<h3>
+Private
+</h3>
 
-        <label>🎭 Personality</label>
+<p>
+Keep your conversations and AI data on your device.
+</p>
 
-        <select id="aiPersonality">
+</div>
 
-          <option>Friendly</option>
-          <option>Teacher</option>
-          <option>Professional</option>
-          <option>Funny</option>
-          <option>Helpful Assistant</option>
+</div>
 
-        </select>
-
-      </div>
-
-
-      <div class="form-group">
-
-        <label>📝 Custom Instructions</label>
-
-        <textarea
-          id="aiInstructions"
-          placeholder="Tell your AI how it should behave..."
-        ></textarea>
-
-      </div>
-
-
-      <div class="form-group">
-
-        <label>🏷️ Watermark</label>
-
-        <div class="toggle-row">
-
-          <span>
-            Show "Powered by PocketAI"
-          </span>
-
-          <label class="toggle">
-
-            <input
-              type="checkbox"
-              id="watermark"
-              checked
-            >
-
-            <span class="slider"></span>
-
-          </label>
-
-        </div>
-
-      </div>
-
-
-      <div class="form-buttons">
-
-        <button
-          class="secondary"
-          onclick="showHome()"
-        >
-          ← Back
-        </button>
-
-        <button
-          class="primary"
-          onclick="createMyAI()"
-        >
-          Create AI →
-        </button>
-
-      </div>
-
-    </div>
-
-  </div>
+</div>
 
 </section>
 
 
+
+<!-- CREATE AI -->
+
+<section
+id="builder"
+class="page"
+style="display:none"
+>
+
+<div class="container">
+
+<div class="title">
+
+<h2>
+Create Your AI
+</h2>
+
+<p>
+Customize your personal PocketAI assistant.
+</p>
+
+</div>
+
+
+<div class="card">
+
+
+<div class="group">
+
+<label>
+🤖 AI Name
+</label>
+
+<input
+id="aiName"
+type="text"
+placeholder="Example: StudyMate"
+>
+
+</div>
+
+
+
+<div class="group">
+
+<label>
+🌐 Language
+</label>
+
+<select id="aiLanguage">
+
+<option>
+English
+</option>
+
+<option>
+Hindi
+</option>
+
+<option>
+Punjabi
+</option>
+
+<option>
+English + Hindi
+</option>
+
+<option>
+English + Punjabi
+</option>
+
+</select>
+
+</div>
+
+
+
+<div class="group">
+
+<label>
+🎭 Personality
+</label>
+
+<select id="aiPersonality">
+
+<option>
+Friendly
+</option>
+
+<option>
+Teacher
+</option>
+
+<option>
+Professional
+</option>
+
+<option>
+Funny
+</option>
+
+<option>
+Helpful Assistant
+</option>
+
+</select>
+
+</div>
+
+
+
+<div class="group">
+
+<label>
+📝 Custom Instructions
+</label>
+
+<textarea
+id="aiInstructions"
+placeholder="Tell your AI how it should behave..."
+></textarea>
+
+</div>
+
+
+
+<div class="group">
+
+<label>
+🏷️ Watermark
+</label>
+
+
+<div class="toggle-row">
+
+<span>
+Show "Powered by PocketAI"
+</span>
+
+
+<label class="toggle">
+
+<input
+id="watermark"
+type="checkbox"
+checked
+>
+
+<span class="slider"></span>
+
+</label>
+
+</div>
+
+</div>
+
+
+
+<div class="form-buttons">
+
+<button
+class="secondary"
+onclick="showHome()"
+>
+
+← Back
+
+</button>
+
+
+<button
+class="primary"
+onclick="createMyAI()"
+>
+
+Create AI →
+
+</button>
+
+</div>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- MY AIs -->
+
+<section
+id="myAIs"
+class="page"
+style="display:none"
+>
+
+<div class="container">
+
+<div class="title">
+
+<h2>
+My AIs
+</h2>
+
+<p>
+Your personal AI assistants.
+</p>
+
+</div>
+
+
+<div id="aiList">
+</div>
+
+</div>
+
+</section>
+
+
+
 <footer>
-  PocketAI — Your AI. Your Phone. No Internet.
-  <br><br>
-  Powered by VocalVista
+
+PocketAI — Your AI. Your Phone. No Internet.
+
+<br><br>
+
+Powered by VocalVista
+
 </footer>
+
 
 
 <script>
 
-function showBuilder() {
 
-  document.getElementById("home").style.display = "none";
+function hideAll(){
 
-  document.getElementById("builder").style.display = "block";
+document.getElementById("home").style.display="none";
 
-  window.scrollTo(0, 0);
-}
+document.getElementById("builder").style.display="none";
 
-
-function showHome() {
-
-  document.getElementById("builder").style.display = "none";
-
-  document.getElementById("home").style.display = "flex";
-
-  window.scrollTo(0, 0);
-}
-
-
-function showFeatures() {
-
-  document
-    .getElementById("features")
-    .scrollIntoView({
-      behavior: "smooth"
-    });
+document.getElementById("myAIs").style.display="none";
 
 }
 
 
-function createMyAI() {
+function showHome(){
 
-  const name =
-    document.getElementById("aiName").value.trim();
+hideAll();
 
-  const language =
-    document.getElementById("aiLanguage").value;
+document.getElementById("home").style.display="flex";
 
-  const personality =
-    document.getElementById("aiPersonality").value;
-
-  if (!name) {
-
-    alert("Please enter a name for your AI.");
-
-    return;
-  }
-
-  localStorage.setItem(
-    "pocketAI_name",
-    name
-  );
-
-  localStorage.setItem(
-    "pocketAI_language",
-    language
-  );
-
-  localStorage.setItem(
-    "pocketAI_personality",
-    personality
-  );
-
-  alert(
-    "🎉 " + name +
-    " has been created!\n\n" +
-    "Language: " + language +
-    "\nPersonality: " + personality
-  );
+window.scrollTo(0,0);
 
 }
+
+
+
+function showBuilder(){
+
+hideAll();
+
+document.getElementById("builder").style.display="block";
+
+window.scrollTo(0,0);
+
+}
+
+
+
+function showMyAIs(){
+
+hideAll();
+
+document.getElementById("myAIs").style.display="block";
+
+loadAIs();
+
+window.scrollTo(0,0);
+
+}
+
+
+
+function showFeatures(){
+
+document
+.getElementById("features")
+.scrollIntoView({
+behavior:"smooth"
+});
+
+}
+
+
+
+function createMyAI(){
+
+const name =
+document.getElementById("aiName").value.trim();
+
+const language =
+document.getElementById("aiLanguage").value;
+
+const personality =
+document.getElementById("aiPersonality").value;
+
+const instructions =
+document.getElementById("aiInstructions").value.trim();
+
+const watermark =
+document.getElementById("watermark").checked;
+
+
+if(!name){
+
+alert("Please enter a name for your AI.");
+
+return;
+
+}
+
+
+const ai={
+
+id:Date.now(),
+
+name:name,
+
+language:language,
+
+personality:personality,
+
+instructions:instructions,
+
+watermark:watermark
+
+};
+
+
+let ais=
+JSON.parse(
+localStorage.getItem("pocketAIs") || "[]"
+);
+
+
+ais.push(ai);
+
+
+localStorage.setItem(
+"pocketAIs",
+JSON.stringify(ais)
+);
+
+
+document.getElementById("aiName").value="";
+
+document.getElementById("aiInstructions").value="";
+
+
+alert(
+"🎉 "+name+" has been created!"
+);
+
+
+showMyAIs();
+
+}
+
+
+
+function loadAIs(){
+
+const container=
+document.getElementById("aiList");
+
+
+const ais=
+JSON.parse(
+localStorage.getItem("pocketAIs") || "[]"
+);
+
+
+if(ais.length===0){
+
+container.innerHTML=`
+
+<div class="empty">
+
+<div style="font-size:50px">
+🤖
+</div>
+
+<h3>
+No AI created yet
+</h3>
+
+<p>
+Create your first personal AI.
+</p>
+
+<br>
+
+<button
+class="primary"
+onclick="showBuilder()"
+>
+
++ Create AI
+
+</button>
+
+</div>
+
+`;
+
+return;
+
+}
+
+
+container.innerHTML="";
+
+
+ais.forEach(ai=>{
+
+const card=
+document.createElement("div");
+
+
+card.className="ai-card";
+
+
+card.innerHTML=`
+
+<div class="ai-icon">
+🤖
+</div>
+
+
+<div class="ai-info">
+
+<h3>
+${escapeHTML(ai.name)}
+</h3>
+
+<p>
+${escapeHTML(ai.language)}
+•
+${escapeHTML(ai.personality)}
+</p>
+
+</div>
+
+
+<button
+class="open-btn"
+onclick="openAI(${ai.id})"
+>
+
+Open
+
+</button>
+
+
+<button
+class="delete-btn"
+onclick="deleteAI(${ai.id})"
+>
+
+Delete
+
+</button>
+
+`;
+
+
+container.appendChild(card);
+
+});
+
+}
+
+
+
+function openAI(id){
+
+const ais=
+JSON.parse(
+localStorage.getItem("pocketAIs") || "[]"
+);
+
+
+const ai=
+ais.find(
+item=>item.id===id
+);
+
+
+if(!ai){
+
+alert("AI not found.");
+
+return;
+
+}
+
+
+alert(
+
+"🤖 "+ai.name+
+
+"\n\nLanguage: "+
+ai.language+
+
+"\nPersonality: "+
+ai.personality+
+
+"\n\nChat screen will be added in the next step."
+
+);
+
+}
+
+
+
+function deleteAI(id){
+
+let ais=
+JSON.parse(
+localStorage.getItem("pocketAIs") || "[]"
+);
+
+
+ais=
+ais.filter(
+ai=>ai.id!==id
+);
+
+
+localStorage.setItem(
+"pocketAIs",
+JSON.stringify(ais)
+);
+
+
+loadAIs();
+
+}
+
+
+
+function escapeHTML(text){
+
+const div=
+document.createElement("div");
+
+div.textContent=text;
+
+return div.innerHTML;
+
+}
+
 
 </script>
+
 
 </body>
 </html>
