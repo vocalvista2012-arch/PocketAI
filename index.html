@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>PocketAI — Offline AI</title>
+<title>PocketAI — Your AI. Your Pocket.</title>
 
 <style>
 *{
@@ -16,7 +16,7 @@
 
 body{
     background:#070b14;
-    color:#fff;
+    color:white;
     min-height:100vh;
 }
 
@@ -76,7 +76,7 @@ nav button:hover{
 
 .hero{
     text-align:center;
-    padding-top:60px;
+    padding-top:70px;
 }
 
 .badge{
@@ -216,6 +216,7 @@ textarea{
     color:#9ba6bb;
     margin-top:15px;
     font-size:13px;
+    line-height:1.5;
 }
 
 .progress{
@@ -224,7 +225,7 @@ textarea{
     background:#20293a;
     border-radius:10px;
     overflow:hidden;
-    margin-top:12px;
+    margin-top:15px;
 }
 
 .progressBar{
@@ -272,6 +273,24 @@ textarea{
     color:#8994aa;
     font-size:13px;
     margin-top:5px;
+}
+
+.openBtn{
+    background:#172033;
+    color:white;
+    border:1px solid #29334b;
+}
+
+.deleteBtn{
+    background:#2a1218;
+    color:#ff8998;
+    border:1px solid #51202b;
+}
+
+.empty{
+    text-align:center;
+    padding:50px;
+    color:#8994aa;
 }
 
 .chat{
@@ -353,13 +372,21 @@ textarea{
 }
 
 .hidden{
-    display:none;
+    display:none !important;
 }
 
-.empty{
-    text-align:center;
-    padding:50px;
+.modelButtons{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:15px;
+}
+
+.small{
     color:#8994aa;
+    font-size:13px;
+    line-height:1.6;
+    margin-top:10px;
 }
 
 footer{
@@ -388,6 +415,10 @@ footer{
     .aiCard{
         flex-wrap:wrap;
     }
+
+    .aiCard button{
+        flex:1;
+    }
 }
 </style>
 </head>
@@ -405,6 +436,7 @@ footer{
     <button onclick="showHome()">Home</button>
     <button onclick="showBuilder()">Create AI</button>
     <button onclick="showAIs()">My AIs</button>
+    <button onclick="showModel()">AI Engine</button>
 </nav>
 
 </header>
@@ -426,18 +458,19 @@ Your AI.<br>
 </h1>
 
 <p class="subtitle">
-Create your own AI assistant and run a supported
-local AI model directly in your browser.
+Create your own AI chatbot with a custom name,
+avatar, language, personality and instructions.
+Run a supported AI model locally in your browser.
 </p>
 
 <div class="buttons">
 
 <button class="primary" onclick="showBuilder()">
-Create Your AI
++ Create Your AI
 </button>
 
 <button class="secondary" onclick="showModel()">
-AI Engine
+🧠 AI Engine
 </button>
 
 </div>
@@ -447,7 +480,7 @@ AI Engine
 </section>
 
 
-<!-- MODEL -->
+<!-- AI ENGINE -->
 
 <section id="modelPage" class="page hidden">
 
@@ -455,48 +488,74 @@ AI Engine
 
 <div class="title">
 
-<h2>🧠 Local AI Engine</h2>
+<h2>🧠 PocketAI Engine</h2>
 
-<p>
-Download the model once, then use the cached model locally when supported.
-</p>
+<p>Load a small AI model locally with WebLLM.</p>
 
 </div>
 
 
 <div class="card">
 
-<h3>Step 1 — Check WebGPU</h3>
+<h3>1. WebGPU Check</h3>
 
 <div id="gpuStatus" class="status">
-Checking your device...
+Checking WebGPU...
 </div>
 
-<br>
+</div>
 
-<h3>Step 2 — Load AI Model</h3>
 
-<p style="color:#8994aa;margin-top:8px;font-size:14px;">
-The first download can be large. Keep your device connected
-to the internet during the initial model download.
+<div class="card">
+
+<h3>2. Local AI Model</h3>
+
+<p class="small">
+
+The first installation requires internet because the AI model
+must be downloaded. The download can be large.
+
+After caching, the model may be available locally,
+depending on your browser and device storage.
+
 </p>
 
-<br>
+
+<div class="modelButtons">
 
 <button
 id="loadButton"
 class="primary"
 onclick="loadLocalAI()"
 >
-Download & Load AI
+⬇️ Download AI Model
 </button>
 
-<div class="progress">
-<div id="progressBar" class="progressBar"></div>
+<button
+class="secondary"
+onclick="clearModelCache()"
+>
+Clear Model Cache
+</button>
+
 </div>
 
-<div id="modelStatus" class="status">
-Model not loaded.
+
+<div class="progress">
+
+<div
+id="progressBar"
+class="progressBar"
+></div>
+
+</div>
+
+
+<div
+id="modelStatus"
+class="status"
+>
+AI model is not loaded.
 </div>
 
 </div>
@@ -514,9 +573,9 @@ Model not loaded.
 
 <div class="title">
 
-<h2>Create Your AI</h2>
+<h2>🤖 Create Your AI</h2>
 
-<p>Customize your personal assistant.</p>
+<p>Build your own personalized assistant.</p>
 
 </div>
 
@@ -526,7 +585,7 @@ Model not loaded.
 
 <div class="group">
 
-<label>🤖 AI Name</label>
+<label>AI Name</label>
 
 <input
 id="aiName"
@@ -538,11 +597,14 @@ placeholder="Example: StudyMate"
 
 <div class="group">
 
-<label>🎨 Custom Avatar</label>
+<label>Custom Avatar</label>
 
 <div class="avatarArea">
 
-<div id="avatarPreview" class="avatarPreview">
+<div
+id="avatarPreview"
+class="avatarPreview"
+>
 🤖
 </div>
 
@@ -560,7 +622,7 @@ onchange="previewAvatar(event)"
 
 <div class="group">
 
-<label>🌐 Language</label>
+<label>Language</label>
 
 <select id="language">
 
@@ -577,7 +639,7 @@ onchange="previewAvatar(event)"
 
 <div class="group">
 
-<label>🎭 Personality</label>
+<label>Personality</label>
 
 <select id="personality">
 
@@ -594,11 +656,11 @@ onchange="previewAvatar(event)"
 
 <div class="group">
 
-<label>📝 Custom Instructions</label>
+<label>Custom Instructions</label>
 
 <textarea
 id="instructions"
-placeholder="Example: Explain everything simply for Class 8 students."
+placeholder="Example: Explain difficult topics in simple language."
 ></textarea>
 
 </div>
@@ -606,7 +668,7 @@ placeholder="Example: Explain everything simply for Class 8 students."
 
 <div class="group">
 
-<label>🏷️ Watermark</label>
+<label>Watermark</label>
 
 <select id="watermark">
 
@@ -669,7 +731,10 @@ Create AI
 
 <div class="chatHeader">
 
-<div id="chatAvatar" class="chatAvatar">
+<div
+id="chatAvatar"
+class="chatAvatar"
+>
 🤖
 </div>
 
@@ -698,7 +763,7 @@ Back
 <div id="messages" class="messages">
 
 <div class="message ai">
-AI is ready.
+Hello! 👋
 </div>
 
 </div>
@@ -708,7 +773,7 @@ AI is ready.
 
 <input
 id="messageInput"
-placeholder="Ask something..."
+placeholder="Ask your AI something..."
 onkeydown="enterSend(event)"
 >
 
@@ -739,14 +804,21 @@ Powered by VocalVista
 </footer>
 
 
-<!-- WebLLM -->
+<!--
+====================================================
+WEBLLM
+====================================================
+-->
 
 <script type="module">
 
-import { CreateMLCEngine }
-from "https://esm.run/@mlc-ai/web-llm";
+import {
+    CreateMLCEngine
+} from "https://esm.run/@mlc-ai/web-llm";
 
-window.CreateMLCEngine = CreateMLCEngine;
+
+window.CreateMLCEngine =
+    CreateMLCEngine;
 
 </script>
 
@@ -754,714 +826,1086 @@ window.CreateMLCEngine = CreateMLCEngine;
 <script>
 
 let currentAI = null;
+
 let engine = null;
 
+let modelLoading = false;
 
-/* NAVIGATION */
+
+/* =========================
+   NAVIGATION
+========================= */
 
 function hideAll(){
 
-document.getElementById("home").classList.add("hidden");
+    document
+        .querySelectorAll(".page")
+        .forEach(page => {
 
-document.getElementById("modelPage").classList.add("hidden");
+            page.classList.add("hidden");
 
-document.getElementById("builder").classList.add("hidden");
-
-document.getElementById("ais").classList.add("hidden");
-
-document.getElementById("chatPage").classList.add("hidden");
+        });
 
 }
 
 
 function showHome(){
 
-hideAll();
+    hideAll();
 
-document.getElementById("home").classList.remove("hidden");
+    document
+        .getElementById("home")
+        .classList.remove("hidden");
 
 }
 
 
 function showBuilder(){
 
-hideAll();
+    hideAll();
 
-document.getElementById("builder").classList.remove("hidden");
+    document
+        .getElementById("builder")
+        .classList.remove("hidden");
 
 }
 
 
 function showAIs(){
 
-hideAll();
+    hideAll();
 
-document.getElementById("ais").classList.remove("hidden");
+    document
+        .getElementById("ais")
+        .classList.remove("hidden");
 
-loadAIs();
+    loadAIs();
 
 }
 
 
 function showModel(){
 
-hideAll();
+    hideAll();
 
-document.getElementById("modelPage").classList.remove("hidden");
+    document
+        .getElementById("modelPage")
+        .classList.remove("hidden");
 
-checkGPU();
+    checkGPU();
 
 }
 
 
-/* GPU */
+/* =========================
+   WEBGPU
+========================= */
 
 async function checkGPU(){
 
-const box =
-document.getElementById("gpuStatus");
+    const box =
+        document.getElementById("gpuStatus");
 
 
-if(!navigator.gpu){
+    if(!navigator.gpu){
 
-box.innerHTML =
-"❌ WebGPU is not available in this browser/device.";
+        box.innerHTML =
+            "❌ WebGPU is not available.<br><br>" +
+            "Try a recent Chrome or Edge browser " +
+            "with WebGPU support.";
 
-return;
+        return;
+
+    }
+
+
+    try{
+
+        const adapter =
+            await navigator.gpu.requestAdapter();
+
+
+        if(adapter){
+
+            box.innerHTML =
+                "✅ WebGPU adapter found.<br>" +
+                "Your browser can communicate with the GPU.<br><br>" +
+                "The Windows powerPreference warning is harmless.";
+
+        }else{
+
+            box.innerHTML =
+                "❌ WebGPU adapter could not be created.";
+
+        }
+
+    }catch(error){
+
+        console.error(error);
+
+        box.innerHTML =
+            "❌ WebGPU check failed.<br>" +
+            escapeHTML(error.message);
+
+    }
 
 }
 
 
-try{
-
-const adapter =
-await navigator.gpu.requestAdapter();
-
-
-if(adapter){
-
-box.innerHTML =
-"✅ WebGPU is available. Your device may be able to run a local AI model.";
-
-}else{
-
-box.innerHTML =
-"❌ WebGPU adapter not found.";
-
-}
-
-}catch(error){
-
-box.innerHTML =
-"❌ WebGPU check failed.";
-
-}
-
-}
-
-
-/* LOAD MODEL */
+/* =========================
+   LOAD LOCAL AI
+========================= */
 
 async function loadLocalAI(){
 
-const status =
-document.getElementById("modelStatus");
+    if(modelLoading){
 
-const button =
-document.getElementById("loadButton");
+        return;
 
-const progress =
-document.getElementById("progressBar");
+    }
 
 
-if(!window.CreateMLCEngine){
+    const status =
+        document.getElementById("modelStatus");
 
-status.innerText =
-"❌ WebLLM library has not loaded yet.";
+    const button =
+        document.getElementById("loadButton");
 
-return;
+    const progress =
+        document.getElementById("progressBar");
+
+
+    if(!navigator.gpu){
+
+        status.innerText =
+            "❌ WebGPU is required for this version.";
+
+        return;
+
+    }
+
+
+    if(!window.CreateMLCEngine){
+
+        status.innerText =
+            "❌ WebLLM has not loaded yet. " +
+            "Refresh the page and try again.";
+
+        return;
+
+    }
+
+
+    modelLoading = true;
+
+    button.disabled = true;
+
+    button.innerText =
+        "⏳ Loading AI...";
+
+    progress.style.width =
+        "0%";
+
+
+    const model =
+        "Llama-3.2-1B-Instruct-q4f16_1-MLC";
+
+
+    try{
+
+        status.innerText =
+            "Preparing local AI model...";
+
+
+        engine =
+            await window.CreateMLCEngine(
+
+                model,
+
+                {
+
+                    initProgressCallback:
+                    (info) => {
+
+                        console.log(
+                            "WebLLM:",
+                            info
+                        );
+
+
+                        if(
+                            typeof info.progress ===
+                            "number"
+                        ){
+
+                            let percent =
+                                Math.round(
+                                    info.progress * 100
+                                );
+
+
+                            if(percent < 0){
+                                percent = 0;
+                            }
+
+                            if(percent > 100){
+                                percent = 100;
+                            }
+
+
+                            progress.style.width =
+                                percent + "%";
+
+                        }
+
+
+                        if(info.text){
+
+                            status.innerText =
+                                info.text;
+
+                        }
+
+                    }
+
+                }
+
+            );
+
+
+        progress.style.width =
+            "100%";
+
+
+        status.innerHTML =
+            "✅ <b>AI model loaded successfully!</b><br>" +
+            "PocketAI is ready to use the local model.";
+
+
+        button.innerText =
+            "✅ AI Ready";
+
+
+    }catch(error){
+
+        console.error(
+            "PocketAI WebLLM ERROR:",
+            error
+        );
+
+
+        engine = null;
+
+
+        status.innerHTML =
+            "❌ <b>AI model failed to load.</b><br><br>" +
+            escapeHTML(
+                error && error.message
+                ? error.message
+                : String(error)
+            ) +
+            "<br><br>" +
+            "Open F12 → Console if you need to inspect the error.";
+
+
+        button.disabled =
+            false;
+
+
+        button.innerText =
+            "🔄 Try Again";
+
+
+    }finally{
+
+        modelLoading =
+            false;
+
+    }
 
 }
 
 
-button.disabled=true;
+/* =========================
+   CLEAR CACHE
+========================= */
 
-button.innerText="Loading...";
+async function clearModelCache(){
 
-
-try{
-
-/*
-This is intentionally a relatively small model
-for testing. Model availability can change.
-*/
-
-const model =
-"Llama-3.2-1B-Instruct-q4f16_1-MLC";
+    const status =
+        document.getElementById("modelStatus");
 
 
-engine =
-await window.CreateMLCEngine(
-model,
-{
+    if(!window.caches){
 
-initProgressCallback:
-(info)=>{
+        status.innerText =
+            "Browser cache API is unavailable.";
 
-if(info.progress !== undefined){
+        return;
 
-progress.style.width =
-(info.progress * 100) + "%";
+    }
+
+
+    try{
+
+        const names =
+            await caches.keys();
+
+
+        let deleted = 0;
+
+
+        for(
+            const name of names
+        ){
+
+            if(
+                name.toLowerCase()
+                .includes("webllm")
+            ){
+
+                await caches.delete(name);
+
+                deleted++;
+
+            }
+
+        }
+
+
+        status.innerText =
+            deleted
+            ? "✅ WebLLM cache cleared."
+            : "No WebLLM cache was found.";
+
+    }catch(error){
+
+        status.innerText =
+            "Could not clear cache.";
+
+        console.error(error);
+
+    }
 
 }
 
-status.innerText =
-info.text || "Loading model...";
 
-}
-
-});
-
-
-progress.style.width="100%";
-
-status.innerText =
-"✅ Local AI model loaded successfully.";
-
-button.innerText="AI Ready";
-
-}catch(error){
-
-console.error(error);
-
-status.innerText =
-"❌ Model could not be loaded: " +
-error.message;
-
-button.disabled=false;
-
-button.innerText="Try Again";
-
-}
-
-}
-
-
-/* AVATAR */
+/* =========================
+   AVATAR
+========================= */
 
 function previewAvatar(event){
 
-const file =
-event.target.files[0];
+    const file =
+        event.target.files[0];
 
 
-if(!file) return;
+    if(!file){
+
+        return;
+
+    }
 
 
-if(file.size > 2 * 1024 * 1024){
+    if(
+        file.size >
+        2 * 1024 * 1024
+    ){
 
-alert("Avatar must be smaller than 2 MB.");
+        alert(
+            "Please choose an avatar smaller than 2 MB."
+        );
 
-event.target.value="";
+        event.target.value =
+            "";
 
-return;
+        return;
+
+    }
+
+
+    const reader =
+        new FileReader();
+
+
+    reader.onload =
+        function(e){
+
+            document
+                .getElementById(
+                    "avatarPreview"
+                )
+                .innerHTML =
+                `<img src="${e.target.result}" alt="AI avatar">`;
+
+        };
+
+
+    reader.readAsDataURL(file);
 
 }
 
 
-const reader =
-new FileReader();
-
-
-reader.onload=function(e){
-
-document
-.getElementById("avatarPreview")
-.innerHTML =
-`<img src="${e.target.result}">`;
-
-};
-
-
-reader.readAsDataURL(file);
-
-}
-
-
-/* CREATE AI */
+/* =========================
+   CREATE AI
+========================= */
 
 function createAI(){
 
-const name =
-document.getElementById("aiName").value.trim();
+    const name =
+        document
+            .getElementById("aiName")
+            .value
+            .trim();
 
-if(!name){
 
-alert("Enter an AI name.");
+    if(!name){
 
-return;
+        alert(
+            "Please enter a name for your AI."
+        );
+
+        return;
+
+    }
+
+
+    const file =
+        document
+            .getElementById("avatarInput")
+            .files[0];
+
+
+    const saveAI =
+        function(avatar){
+
+            const ai = {
+
+                id:
+                    Date.now(),
+
+                name:
+                    name,
+
+                avatar:
+                    avatar,
+
+                language:
+                    document
+                        .getElementById("language")
+                        .value,
+
+                personality:
+                    document
+                        .getElementById("personality")
+                        .value,
+
+                instructions:
+                    document
+                        .getElementById("instructions")
+                        .value
+                        .trim(),
+
+                watermark:
+                    document
+                        .getElementById("watermark")
+                        .value === "yes"
+
+            };
+
+
+            let ais =
+                JSON.parse(
+                    localStorage
+                        .getItem("pocketAIs")
+                    || "[]"
+                );
+
+
+            ais.push(ai);
+
+
+            try{
+
+                localStorage.setItem(
+                    "pocketAIs",
+                    JSON.stringify(ais)
+                );
+
+            }catch(error){
+
+                alert(
+                    "Could not save AI. " +
+                    "Try a smaller avatar."
+                );
+
+                return;
+
+            }
+
+
+            alert(
+                "🎉 " +
+                name +
+                " created successfully!"
+            );
+
+
+            resetBuilder();
+
+            showAIs();
+
+        };
+
+
+    if(file){
+
+        const reader =
+            new FileReader();
+
+
+        reader.onload =
+            function(e){
+
+                saveAI(
+                    e.target.result
+                );
+
+            };
+
+
+        reader.readAsDataURL(file);
+
+    }else{
+
+        saveAI(null);
+
+    }
 
 }
 
 
-const file =
-document.getElementById("avatarInput").files[0];
-
-
-const save = (avatar)=>{
-
-const ai={
-
-id:Date.now(),
-
-name:name,
-
-avatar:avatar,
-
-language:
-document.getElementById("language").value,
-
-personality:
-document.getElementById("personality").value,
-
-instructions:
-document.getElementById("instructions").value,
-
-watermark:
-document.getElementById("watermark").value === "yes"
-
-};
-
-
-const list =
-JSON.parse(
-localStorage.getItem("pocketAIs") || "[]"
-);
-
-
-list.push(ai);
-
-
-localStorage.setItem(
-"pocketAIs",
-JSON.stringify(list)
-);
-
-
-alert("🎉 " + name + " created!");
-
-resetBuilder();
-
-showAIs();
-
-};
-
-
-if(file){
-
-const reader =
-new FileReader();
-
-reader.onload =
-e => save(e.target.result);
-
-reader.readAsDataURL(file);
-
-}else{
-
-save(null);
-
-}
-
-}
-
-
-/* RESET */
+/* =========================
+   RESET BUILDER
+========================= */
 
 function resetBuilder(){
 
-document.getElementById("aiName").value="";
+    document
+        .getElementById("aiName")
+        .value = "";
 
-document.getElementById("instructions").value="";
 
-document.getElementById("avatarInput").value="";
+    document
+        .getElementById("instructions")
+        .value = "";
 
-document.getElementById("avatarPreview").innerHTML="🤖";
+
+    document
+        .getElementById("avatarInput")
+        .value = "";
+
+
+    document
+        .getElementById("avatarPreview")
+        .innerHTML = "🤖";
 
 }
 
 
-/* LOAD AI LIST */
+/* =========================
+   AI LIST
+========================= */
 
 function loadAIs(){
 
-const list =
-document.getElementById("aiList");
+    const list =
+        document
+            .getElementById("aiList");
 
 
-const ais =
-JSON.parse(
-localStorage.getItem("pocketAIs") || "[]"
-);
+    const ais =
+        JSON.parse(
+            localStorage
+                .getItem("pocketAIs")
+            || "[]"
+        );
 
 
-if(!ais.length){
+    if(!ais.length){
 
-list.innerHTML=`
+        list.innerHTML = `
 
-<div class="empty">
+            <div class="empty">
 
-<div style="font-size:50px">
-🤖
-</div>
+                <div style="font-size:50px">
+                    🤖
+                </div>
 
-<h3>No AI yet</h3>
+                <h3>No AI created yet</h3>
 
-<br>
+                <br>
 
-<button
-class="primary"
-onclick="showBuilder()"
->
-Create AI
-</button>
+                <button
+                    class="primary"
+                    onclick="showBuilder()"
+                >
+                    + Create AI
+                </button>
 
-</div>
+            </div>
 
-`;
+        `;
 
-return;
+        return;
+
+    }
+
+
+    list.innerHTML =
+        "";
+
+
+    ais.forEach(
+        function(ai){
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+
+            card.className =
+                "aiCard";
+
+
+            let avatar =
+                "🤖";
+
+
+            if(ai.avatar){
+
+                avatar =
+                    `<img src="${ai.avatar}" alt="avatar">`;
+
+            }
+
+
+            card.innerHTML = `
+
+                <div class="aiIcon">
+                    ${avatar}
+                </div>
+
+                <div class="aiInfo">
+
+                    <h3>
+                        ${escapeHTML(ai.name)}
+                    </h3>
+
+                    <p>
+                        ${escapeHTML(ai.language)}
+                        •
+                        ${escapeHTML(ai.personality)}
+                    </p>
+
+                </div>
+
+                <button
+                    class="openBtn"
+                    onclick="openAI(${ai.id})"
+                >
+                    Open
+                </button>
+
+                <button
+                    class="deleteBtn"
+                    onclick="deleteAI(${ai.id})"
+                >
+                    Delete
+                </button>
+
+            `;
+
+
+            list.appendChild(card);
+
+        }
+    );
 
 }
 
 
-list.innerHTML="";
-
-
-ais.forEach(ai=>{
-
-const card =
-document.createElement("div");
-
-card.className="aiCard";
-
-
-let avatar="🤖";
-
-if(ai.avatar){
-
-avatar =
-`<img src="${ai.avatar}">`;
-
-}
-
-
-card.innerHTML=`
-
-<div class="aiIcon">
-${avatar}
-</div>
-
-<div class="aiInfo">
-
-<h3>
-${escapeHTML(ai.name)}
-</h3>
-
-<p>
-${escapeHTML(ai.language)}
-•
-${escapeHTML(ai.personality)}
-</p>
-
-</div>
-
-<button
-class="open-btn"
-onclick="openAI(${ai.id})"
->
-Open
-</button>
-
-<button
-class="delete-btn"
-onclick="deleteAI(${ai.id})"
->
-Delete
-</button>
-
-`;
-
-
-list.appendChild(card);
-
-});
-
-}
-
-
-/* OPEN */
+/* =========================
+   OPEN AI
+========================= */
 
 function openAI(id){
 
-const ais =
-JSON.parse(
-localStorage.getItem("pocketAIs") || "[]"
-);
+    const ais =
+        JSON.parse(
+            localStorage
+                .getItem("pocketAIs")
+            || "[]"
+        );
 
 
-currentAI =
-ais.find(ai => ai.id === id);
+    currentAI =
+        ais.find(
+            ai =>
+                ai.id === id
+        );
 
 
-if(!currentAI){
+    if(!currentAI){
 
-return;
+        alert(
+            "AI could not be found."
+        );
+
+        return;
+
+    }
+
+
+    hideAll();
+
+
+    document
+        .getElementById("chatPage")
+        .classList
+        .remove("hidden");
+
+
+    document
+        .getElementById("chatTitle")
+        .innerText =
+        currentAI.name;
+
+
+    document
+        .getElementById("chatDetails")
+        .innerText =
+        currentAI.language +
+        " • " +
+        currentAI.personality;
+
+
+    const avatar =
+        document
+            .getElementById("chatAvatar");
+
+
+    if(currentAI.avatar){
+
+        avatar.innerHTML =
+            `<img src="${currentAI.avatar}" alt="avatar">`;
+
+    }else{
+
+        avatar.innerHTML =
+            "🤖";
+
+    }
+
+
+    let welcome =
+        "Hello! 👋\n\n" +
+        "I'm " +
+        currentAI.name +
+        ".";
+
+
+    if(engine){
+
+        welcome +=
+            "\n\n🟢 Local AI model is ready.";
+
+    }else{
+
+        welcome +=
+            "\n\n🟡 Load the AI model from the AI Engine page.";
+
+    }
+
+
+    document
+        .getElementById("messages")
+        .innerHTML =
+        `<div class="message ai">${
+            escapeHTML(welcome)
+        }</div>`;
 
 }
 
 
-hideAll();
-
-document
-.getElementById("chatPage")
-.classList.remove("hidden");
-
-
-document
-.getElementById("chatTitle")
-.innerText =
-currentAI.name;
-
-
-document
-.getElementById("chatDetails")
-.innerText =
-currentAI.language +
-" • " +
-currentAI.personality;
-
-
-const avatar =
-document.getElementById("chatAvatar");
-
-
-if(currentAI.avatar){
-
-avatar.innerHTML =
-`<img src="${currentAI.avatar}">`;
-
-}else{
-
-avatar.innerHTML="🤖";
-
-}
-
-
-document.getElementById("messages").innerHTML=`
-
-<div class="message ai">
-
-Hello! 👋
-
-I'm ${escapeHTML(currentAI.name)}.
-
-${engine
-? "I'm ready to answer using the local AI model."
-: "The local AI model is not loaded yet. Go to AI Engine and load it."}
-
-</div>
-
-`;
-
-}
-
-
-/* CHAT */
+/* =========================
+   CHAT
+========================= */
 
 async function sendMessage(){
 
-const input =
-document.getElementById("messageInput");
-
-const text =
-input.value.trim();
+    const input =
+        document
+            .getElementById("messageInput");
 
 
-if(!text || !currentAI){
+    const text =
+        input.value.trim();
 
-return;
+
+    if(
+        !text ||
+        !currentAI
+    ){
+
+        return;
+
+    }
+
+
+    const messages =
+        document
+            .getElementById("messages");
+
+
+    const userMessage =
+        document.createElement(
+            "div"
+        );
+
+
+    userMessage.className =
+        "message user";
+
+
+    userMessage.textContent =
+        text;
+
+
+    messages.appendChild(
+        userMessage
+    );
+
+
+    input.value =
+        "";
+
+
+    const aiMessage =
+        document.createElement(
+            "div"
+        );
+
+
+    aiMessage.className =
+        "message ai";
+
+
+    aiMessage.textContent =
+        "Thinking...";
+
+
+    messages.appendChild(
+        aiMessage
+    );
+
+
+    messages.scrollTop =
+        messages.scrollHeight;
+
+
+    if(!engine){
+
+        aiMessage.textContent =
+            "⚠️ The local AI model is not loaded yet.\n\n" +
+            "Go to AI Engine → Download AI Model.";
+
+        return;
+
+    }
+
+
+    try{
+
+        let systemPrompt =
+
+            "You are " +
+            currentAI.name +
+            ".\n\n" +
+
+            "Personality: " +
+            currentAI.personality +
+            "\n\n" +
+
+            "Language: " +
+            currentAI.language +
+            "\n\n";
+
+
+        if(
+            currentAI.instructions
+        ){
+
+            systemPrompt +=
+                "Special instructions:\n" +
+                currentAI.instructions +
+                "\n\n";
+
+        }
+
+
+        systemPrompt +=
+            "Answer naturally and helpfully.";
+
+
+        const response =
+            await engine
+                .chat
+                .completions
+                .create({
+
+                    messages:[
+
+                        {
+                            role:
+                                "system",
+
+                            content:
+                                systemPrompt
+                        },
+
+                        {
+                            role:
+                                "user",
+
+                            content:
+                                text
+                        }
+
+                    ],
+
+                    temperature:
+                        0.7,
+
+                    max_tokens:
+                        300
+
+                });
+
+
+        const answer =
+            response
+                .choices[0]
+                .message
+                .content;
+
+
+        aiMessage.textContent =
+            answer;
+
+
+    }catch(error){
+
+        console.error(
+            "CHAT ERROR:",
+            error
+        );
+
+
+        aiMessage.textContent =
+            "❌ Local AI error:\n\n" +
+            (
+                error.message ||
+                String(error)
+            );
+
+    }
+
+
+    messages.scrollTop =
+        messages.scrollHeight;
 
 }
 
 
-const messages =
-document.getElementById("messages");
-
-
-const user =
-document.createElement("div");
-
-user.className="message user";
-
-user.textContent=text;
-
-messages.appendChild(user);
-
-input.value="";
-
-
-const answer =
-document.createElement("div");
-
-answer.className="message ai";
-
-answer.textContent="Thinking...";
-
-messages.appendChild(answer);
-
-
-messages.scrollTop =
-messages.scrollHeight;
-
-
-/* REAL LOCAL MODEL */
-
-if(!engine){
-
-answer.textContent =
-"⚠️ Local AI model is not loaded yet.\n\nGo to → AI Engine → Download & Load AI.";
-
-return;
-
-}
-
-
-try{
-
-let systemPrompt =
-"You are " +
-currentAI.name +
-".\n" +
-
-"Personality: " +
-currentAI.personality +
-"\n" +
-
-"Language: " +
-currentAI.language +
-"\n";
-
-
-if(currentAI.instructions){
-
-systemPrompt +=
-"Instructions: " +
-currentAI.instructions;
-
-}
-
-
-const response =
-await engine.chat.completions.create({
-
-messages:[
-
-{
-role:"system",
-content:systemPrompt
-},
-
-{
-role:"user",
-content:text
-}
-
-],
-
-temperature:0.7,
-
-max_tokens:300
-
-});
-
-
-answer.textContent =
-response.choices[0].message.content;
-
-
-}catch(error){
-
-console.error(error);
-
-answer.textContent =
-"❌ AI error: " +
-error.message;
-
-}
-
-
-messages.scrollTop =
-messages.scrollHeight;
-
-}
-
-
-/* ENTER */
+/* =========================
+   ENTER TO SEND
+========================= */
 
 function enterSend(event){
 
-if(event.key==="Enter"){
+    if(
+        event.key === "Enter"
+    ){
 
-sendMessage();
+        sendMessage();
+
+    }
 
 }
 
-}
 
-
-/* DELETE */
+/* =========================
+   DELETE AI
+========================= */
 
 function deleteAI(id){
 
-if(!confirm("Delete this AI?")){
+    if(
+        !confirm(
+            "Delete this AI?"
+        )
+    ){
 
-return;
+        return;
+
+    }
+
+
+    let ais =
+        JSON.parse(
+            localStorage
+                .getItem("pocketAIs")
+            || "[]"
+        );
+
+
+    ais =
+        ais.filter(
+            ai =>
+                ai.id !== id
+        );
+
+
+    localStorage.setItem(
+        "pocketAIs",
+        JSON.stringify(ais)
+    );
+
+
+    loadAIs();
 
 }
 
 
-let ais =
-JSON.parse(
-localStorage.getItem("pocketAIs") || "[]"
-);
-
-
-ais =
-ais.filter(ai => ai.id !== id);
-
-
-localStorage.setItem(
-"pocketAIs",
-JSON.stringify(ais)
-);
-
-
-loadAIs();
-
-}
-
-
-/* SECURITY */
+/* =========================
+   ESCAPE HTML
+========================= */
 
 function escapeHTML(text){
 
-const div =
-document.createElement("div");
+    const div =
+        document.createElement(
+            "div"
+        );
 
-div.textContent=text;
 
-return div.innerHTML;
+    div.textContent =
+        text;
+
+
+    return div.innerHTML;
 
 }
 
