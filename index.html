@@ -7,7 +7,6 @@
 <title>PocketAI — Your AI. Your Pocket.</title>
 
 <style>
-
 *{
     margin:0;
     padding:0;
@@ -46,34 +45,35 @@ header{
     align-items:center;
     justify-content:center;
     background:linear-gradient(135deg,#5b5cff,#a855f7);
-    font-size:21px;
 }
 
 nav{
     display:flex;
-    gap:25px;
+    gap:22px;
 }
 
-nav a{
+nav button{
+    background:none;
     color:#aeb7ca;
-    text-decoration:none;
+    border:0;
+    padding:5px;
     cursor:pointer;
     font-size:14px;
 }
 
-nav a:hover{
+nav button:hover{
     color:white;
 }
 
 .page{
     min-height:calc(100vh - 70px);
-    padding:60px 20px;
+    padding:50px 20px;
 }
 
 .home{
     display:flex;
-    justify-content:center;
     align-items:center;
+    justify-content:center;
     text-align:center;
 }
 
@@ -99,12 +99,7 @@ h1{
 }
 
 .gradient{
-    background:linear-gradient(
-        90deg,
-        #6c63ff,
-        #b45cff,
-        #54c7ff
-    );
+    background:linear-gradient(90deg,#6c63ff,#b45cff,#54c7ff);
     -webkit-background-clip:text;
     color:transparent;
 }
@@ -123,22 +118,9 @@ h1{
     flex-wrap:wrap;
 }
 
-button{
-    border:none;
-    cursor:pointer;
-    padding:14px 25px;
-    border-radius:12px;
-    font-size:15px;
-    font-weight:bold;
-}
-
 .primary{
     color:white;
-    background:linear-gradient(
-        135deg,
-        #5b5cff,
-        #9b51e0
-    );
+    background:linear-gradient(135deg,#5b5cff,#9b51e0);
 }
 
 .secondary{
@@ -147,8 +129,16 @@ button{
     border:1px solid #29334b;
 }
 
+button{
+    border:none;
+    cursor:pointer;
+    padding:13px 20px;
+    border-radius:11px;
+    font-weight:bold;
+}
+
 .features{
-    margin-top:70px;
+    margin-top:65px;
     display:grid;
     grid-template-columns:repeat(3,1fr);
     gap:15px;
@@ -168,7 +158,6 @@ button{
 
 .feature h3{
     margin-bottom:8px;
-    font-size:16px;
 }
 
 .feature p{
@@ -178,7 +167,7 @@ button{
 }
 
 
-/* MAIN CONTAINER */
+/* COMMON */
 
 .container{
     max-width:700px;
@@ -187,30 +176,27 @@ button{
 
 .title{
     text-align:center;
-    margin-bottom:35px;
+    margin-bottom:30px;
 }
 
 .title h2{
-    font-size:38px;
-    margin-bottom:10px;
+    font-size:36px;
+    margin-bottom:8px;
 }
 
 .title p{
     color:#8994aa;
 }
 
-
-/* FORM */
-
 .card{
     background:#0f1625;
     border:1px solid #1d2940;
     border-radius:20px;
-    padding:30px;
+    padding:28px;
 }
 
 .group{
-    margin-bottom:22px;
+    margin-bottom:20px;
 }
 
 label{
@@ -220,9 +206,7 @@ label{
     font-weight:bold;
 }
 
-input,
-select,
-textarea{
+input,select,textarea{
     width:100%;
     background:#080d18;
     border:1px solid #27344d;
@@ -230,13 +214,6 @@ textarea{
     padding:13px;
     color:white;
     outline:none;
-    font-size:14px;
-}
-
-input:focus,
-select:focus,
-textarea:focus{
-    border-color:#7067ff;
 }
 
 textarea{
@@ -244,10 +221,14 @@ textarea{
     resize:vertical;
 }
 
+input:focus,select:focus,textarea:focus{
+    border-color:#7067ff;
+}
+
 
 /* AVATAR */
 
-.avatar-upload{
+.avatar-area{
     display:flex;
     align-items:center;
     gap:20px;
@@ -255,35 +236,22 @@ textarea{
 }
 
 .avatar-preview{
-    width:110px;
-    height:110px;
-    border-radius:25px;
-    background:linear-gradient(
-        135deg,
-        #5b5cff,
-        #a855f7
-    );
-    border:2px solid #29334b;
+    width:100px;
+    height:100px;
+    border-radius:22px;
+    overflow:hidden;
     display:flex;
     align-items:center;
     justify-content:center;
-    overflow:hidden;
-    font-size:45px;
-    flex-shrink:0;
+    font-size:42px;
+    background:linear-gradient(135deg,#5b5cff,#a855f7);
+    border:2px solid #29334b;
 }
 
 .avatar-preview img{
     width:100%;
     height:100%;
     object-fit:cover;
-}
-
-.file-box{
-    flex:1;
-}
-
-.file-box input{
-    padding:10px;
 }
 
 
@@ -293,15 +261,10 @@ textarea{
     display:flex;
     align-items:center;
     justify-content:space-between;
-    background:#080d18;
     padding:15px;
-    border-radius:10px;
+    background:#080d18;
     border:1px solid #27344d;
-}
-
-.toggle-row span{
-    color:#aeb7ca;
-    font-size:14px;
+    border-radius:10px;
 }
 
 .toggle{
@@ -343,26 +306,13 @@ textarea{
 }
 
 
-/* BUTTONS */
-
-.form-buttons{
-    display:flex;
-    gap:10px;
-    margin-top:25px;
-}
-
-.form-buttons button{
-    flex:1;
-}
-
-
-/* AI CARDS */
+/* AI LIST */
 
 .ai-card{
     display:flex;
     align-items:center;
     gap:15px;
-    padding:18px;
+    padding:17px;
     margin-bottom:12px;
     background:#0f1625;
     border:1px solid #1d2940;
@@ -370,20 +320,16 @@ textarea{
 }
 
 .ai-icon{
-    width:60px;
-    height:60px;
-    border-radius:18px;
+    width:58px;
+    height:58px;
+    border-radius:17px;
     overflow:hidden;
-    flex-shrink:0;
-    background:linear-gradient(
-        135deg,
-        #5b5cff,
-        #a855f7
-    );
     display:flex;
     align-items:center;
     justify-content:center;
     font-size:27px;
+    background:linear-gradient(135deg,#5b5cff,#a855f7);
+    flex-shrink:0;
 }
 
 .ai-icon img{
@@ -409,22 +355,18 @@ textarea{
     background:#172033;
     color:white;
     border:1px solid #29334b;
-    padding:10px 15px;
-    border-radius:9px;
 }
 
 .delete-btn{
     background:#2a1218;
     color:#ff8a9a;
     border:1px solid #51202b;
-    padding:10px 15px;
-    border-radius:9px;
 }
 
 .empty{
     text-align:center;
-    padding:50px 20px;
     color:#8994aa;
+    padding:50px 20px;
 }
 
 
@@ -446,7 +388,7 @@ textarea{
     display:flex;
     align-items:center;
     gap:12px;
-    padding:18px;
+    padding:17px;
     border-bottom:1px solid #1d2940;
 }
 
@@ -455,14 +397,10 @@ textarea{
     height:50px;
     border-radius:15px;
     overflow:hidden;
-    background:linear-gradient(
-        135deg,
-        #5b5cff,
-        #a855f7
-    );
     display:flex;
     align-items:center;
     justify-content:center;
+    background:linear-gradient(135deg,#5b5cff,#a855f7);
     font-size:25px;
 }
 
@@ -498,11 +436,11 @@ textarea{
     margin-bottom:12px;
     line-height:1.5;
     font-size:14px;
+    white-space:pre-wrap;
 }
 
 .ai-message{
     background:#172033;
-    margin-right:auto;
 }
 
 .user-message{
@@ -517,12 +455,18 @@ textarea{
     border-top:1px solid #1d2940;
 }
 
-.chat-input input{
-    flex:1;
-}
 
-.chat-input button{
-    padding:12px 20px;
+/* OFFLINE STATUS */
+
+.offline-box{
+    margin-top:15px;
+    padding:13px;
+    border-radius:10px;
+    background:#0b1720;
+    border:1px solid #1c3943;
+    color:#8dd9c5;
+    font-size:13px;
+    text-align:center;
 }
 
 
@@ -537,16 +481,15 @@ footer{
 }
 
 
-/* MOBILE */
-
 @media(max-width:700px){
 
     nav{
-        gap:10px;
+        gap:7px;
     }
 
-    nav a{
+    nav button{
         font-size:11px;
+        padding:5px;
     }
 
     .features{
@@ -566,54 +509,36 @@ footer{
         flex:1;
     }
 
+    .chat-input{
+        flex-direction:column;
+    }
+
 }
 
 </style>
 </head>
 
-
 <body>
-
 
 <header>
 
 <div class="logo">
-
-<div class="logo-icon">
-✦
+    <div class="logo-icon">✦</div>
+    PocketAI
 </div>
-
-PocketAI
-
-</div>
-
 
 <nav>
-
-<a onclick="showHome()">
-Home
-</a>
-
-<a onclick="showMyAIs()">
-My AIs
-</a>
-
-<a onclick="showBuilder()">
-Create AI
-</a>
-
+    <button onclick="showHome()">Home</button>
+    <button onclick="showMyAIs()">My AIs</button>
+    <button onclick="showBuilder()">Create AI</button>
 </nav>
 
 </header>
 
 
-
 <!-- HOME -->
 
-<section
-id="home"
-class="page home"
->
+<section id="home" class="page home">
 
 <div class="hero">
 
@@ -621,104 +546,49 @@ class="page home"
 🔒 Private • Offline • Personal
 </div>
 
-
 <h1>
-
 Your AI.<br>
-
-<span class="gradient">
-Your Pocket.
-</span>
-
+<span class="gradient">Your Pocket.</span>
 </h1>
 
-
 <p class="subtitle">
-
-Create your own AI chatbot, customize its
-name, language, personality and instructions —
-then run it directly on your phone.
-
+Create your own AI chatbot with a custom name,
+avatar, language, personality and instructions.
+PocketAI is designed to bring your personal AI
+to your own device.
 </p>
-
 
 <div class="buttons">
 
-<button
-class="primary"
-onclick="showBuilder()"
->
-
+<button class="primary" onclick="showBuilder()">
 + Create Your AI
-
 </button>
 
-
-<button
-class="secondary"
-onclick="showFeatures()"
->
-
+<button class="secondary" onclick="showFeatures()">
 Learn More
-
 </button>
 
 </div>
 
 
-<div
-class="features"
-id="features"
->
+<div class="features" id="features">
 
 <div class="feature">
-
-<div class="feature-icon">
-📱
+<div class="feature-icon">📱</div>
+<h3>Your Device</h3>
+<p>Your AI settings and profiles can be stored locally.</p>
 </div>
-
-<h3>
-Runs on Your Phone
-</h3>
-
-<p>
-Your AI is designed to run locally on your device.
-</p>
-
-</div>
-
 
 <div class="feature">
-
-<div class="feature-icon">
-📵
+<div class="feature-icon">📵</div>
+<h3>Offline Goal</h3>
+<p>The project is designed to eventually run an AI model locally.</p>
 </div>
-
-<h3>
-Works Offline
-</h3>
-
-<p>
-Chat with your AI without an internet connection.
-</p>
-
-</div>
-
 
 <div class="feature">
-
-<div class="feature-icon">
-🔐
-</div>
-
-<h3>
-Private
-</h3>
-
-<p>
-Keep your conversations and AI data on your device.
-</p>
-
+<div class="feature-icon">🔐</div>
+<h3>Privacy</h3>
+<p>Your personal AI configuration stays on your device.</p>
 </div>
 
 </div>
@@ -728,26 +598,17 @@ Keep your conversations and AI data on your device.
 </section>
 
 
+<!-- BUILDER -->
 
-<!-- CREATE AI -->
-
-<section
-id="builder"
-class="page"
-style="display:none"
->
+<section id="builder" class="page" style="display:none">
 
 <div class="container">
 
 <div class="title">
 
-<h2>
-Create Your AI
-</h2>
+<h2>Create Your AI</h2>
 
-<p>
-Build your personal PocketAI assistant.
-</p>
+<p>Customize your personal AI assistant.</p>
 
 </div>
 
@@ -755,13 +616,9 @@ Build your personal PocketAI assistant.
 <div class="card">
 
 
-<!-- NAME -->
-
 <div class="group">
 
-<label>
-🤖 AI Name
-</label>
+<label>🤖 AI Name</label>
 
 <input
 id="aiName"
@@ -772,28 +629,15 @@ placeholder="Example: StudyMate"
 </div>
 
 
-<!-- AVATAR -->
-
 <div class="group">
 
-<label>
-🎨 Custom AI Avatar
-</label>
+<label>🎨 Custom Avatar</label>
 
+<div class="avatar-area">
 
-<div class="avatar-upload">
-
-<div
-id="avatarPreview"
-class="avatar-preview"
->
-
+<div id="avatarPreview" class="avatar-preview">
 🤖
-
 </div>
-
-
-<div class="file-box">
 
 <input
 id="aiAvatar"
@@ -806,27 +650,17 @@ onchange="previewAvatar(event)"
 
 </div>
 
-</div>
-
-
-<!-- LANGUAGE -->
 
 <div class="group">
 
-<label>
-🌐 Language
-</label>
+<label>🌐 Language</label>
 
 <select id="aiLanguage">
 
 <option>English</option>
-
 <option>Hindi</option>
-
 <option>Punjabi</option>
-
 <option>English + Hindi</option>
-
 <option>English + Punjabi</option>
 
 </select>
@@ -834,24 +668,16 @@ onchange="previewAvatar(event)"
 </div>
 
 
-<!-- PERSONALITY -->
-
 <div class="group">
 
-<label>
-🎭 Personality
-</label>
+<label>🎭 Personality</label>
 
 <select id="aiPersonality">
 
 <option>Friendly</option>
-
 <option>Teacher</option>
-
 <option>Professional</option>
-
 <option>Funny</option>
-
 <option>Helpful Assistant</option>
 
 </select>
@@ -859,37 +685,25 @@ onchange="previewAvatar(event)"
 </div>
 
 
-<!-- INSTRUCTIONS -->
-
 <div class="group">
 
-<label>
-📝 Custom Instructions
-</label>
+<label>📝 Custom Instructions</label>
 
 <textarea
 id="aiInstructions"
-placeholder="Tell your AI how it should behave..."
+placeholder="Example: Explain difficult topics in simple Class 8 language."
 ></textarea>
 
 </div>
 
 
-<!-- WATERMARK -->
-
 <div class="group">
 
-<label>
-🏷️ Watermark
-</label>
-
+<label>🏷️ Watermark</label>
 
 <div class="toggle-row">
 
-<span>
-Show "Powered by PocketAI"
-</span>
-
+<span>Show Powered by PocketAI</span>
 
 <label class="toggle">
 
@@ -910,27 +724,15 @@ checked
 
 <div class="form-buttons">
 
-<button
-class="secondary"
-onclick="showHome()"
->
-
+<button class="secondary" onclick="showHome()">
 ← Back
-
 </button>
 
-
-<button
-class="primary"
-onclick="createMyAI()"
->
-
+<button class="primary" onclick="createAI()">
 Create AI →
-
 </button>
 
 </div>
-
 
 </div>
 
@@ -939,58 +741,38 @@ Create AI →
 </section>
 
 
+<!-- MY AIS -->
 
-<!-- MY AIs -->
-
-<section
-id="myAIs"
-class="page"
-style="display:none"
->
+<section id="myAIs" class="page" style="display:none">
 
 <div class="container">
 
 <div class="title">
 
-<h2>
-My AIs
-</h2>
+<h2>My AIs</h2>
 
-<p>
-Your personal AI assistants.
-</p>
+<p>Your personal AI assistants.</p>
 
 </div>
 
-
-<div id="aiList">
-</div>
+<div id="aiList"></div>
 
 </div>
 
 </section>
 
 
-
 <!-- CHAT -->
 
-<section
-id="chatPage"
-class="page"
-style="display:none"
->
+<section id="chatPage" class="page" style="display:none">
 
 <div class="chat-container">
 
 <div class="title">
 
-<h2 id="chatPageTitle">
-AI Chat
-</h2>
+<h2 id="chatTitle">AI Chat</h2>
 
-<p>
-Your personal assistant.
-</p>
+<p>Personal AI workspace</p>
 
 </div>
 
@@ -1000,52 +782,33 @@ Your personal assistant.
 
 <div class="chat-header">
 
-<div
-id="chatAvatar"
-class="chat-avatar"
->
+<div id="chatAvatar" class="chat-avatar">
 🤖
 </div>
 
-
 <div class="chat-title">
 
-<h3 id="chatAIName">
-PocketAI
-</h3>
+<h3 id="chatName">PocketAI</h3>
 
-<p id="chatPersonality">
-Friendly
-</p>
+<p id="chatDetails">Offline AI</p>
 
 </div>
 
-
-<button
-class="secondary"
-onclick="showMyAIs()"
->
-
-← Back
-
+<button class="secondary" onclick="showMyAIs()">
+Back
 </button>
 
 </div>
 
 
-<div
-id="messages"
-class="messages"
->
+<div id="messages" class="messages">
 
 <div class="message ai-message">
-
 Hello! 👋
 
-I'm your PocketAI assistant.
+Your AI profile is ready.
 
-Ask me something!
-
+The real local AI model will be connected in the next development stage.
 </div>
 
 </div>
@@ -1055,23 +818,20 @@ Ask me something!
 
 <input
 id="messageInput"
-type="text"
 placeholder="Type a message..."
 onkeydown="handleEnter(event)"
 >
 
-
-<button
-class="primary"
-onclick="sendMessage()"
->
-
+<button class="primary" onclick="sendMessage()">
 Send
-
 </button>
 
 </div>
 
+
+<div class="offline-box">
+📵 Offline AI engine: Not installed yet
+</div>
 
 </div>
 
@@ -1080,10 +840,9 @@ Send
 </section>
 
 
-
 <footer>
 
-PocketAI — Your AI. Your Phone. No Internet.
+PocketAI — Your AI. Your Pocket.
 
 <br><br>
 
@@ -1092,16 +851,14 @@ Powered by VocalVista
 </footer>
 
 
-
 <script>
-
 
 let currentAI = null;
 
 
-/* PAGE NAVIGATION */
+/* PAGE CONTROL */
 
-function hideAll(){
+function hidePages(){
 
 document.getElementById("home").style.display="none";
 
@@ -1116,7 +873,7 @@ document.getElementById("chatPage").style.display="none";
 
 function showHome(){
 
-hideAll();
+hidePages();
 
 document.getElementById("home").style.display="flex";
 
@@ -1127,7 +884,7 @@ window.scrollTo(0,0);
 
 function showBuilder(){
 
-hideAll();
+hidePages();
 
 document.getElementById("builder").style.display="block";
 
@@ -1138,7 +895,7 @@ window.scrollTo(0,0);
 
 function showMyAIs(){
 
-hideAll();
+hidePages();
 
 document.getElementById("myAIs").style.display="block";
 
@@ -1151,9 +908,7 @@ window.scrollTo(0,0);
 
 function showFeatures(){
 
-document
-.getElementById("features")
-.scrollIntoView({
+document.getElementById("features").scrollIntoView({
 behavior:"smooth"
 });
 
@@ -1164,21 +919,14 @@ behavior:"smooth"
 
 function previewAvatar(event){
 
-const file =
-event.target.files[0];
+const file = event.target.files[0];
 
-if(!file){
-
-return;
-
-}
+if(!file) return;
 
 
 if(file.size > 2 * 1024 * 1024){
 
-alert(
-"Please choose an image smaller than 2 MB."
-);
+alert("Please choose an image smaller than 2 MB.");
 
 event.target.value="";
 
@@ -1187,20 +935,14 @@ return;
 }
 
 
-const reader =
-new FileReader();
+const reader = new FileReader();
 
+reader.onload = function(e){
 
-reader.onload=function(e){
-
-document.getElementById(
-"avatarPreview"
-).innerHTML=
-
-`<img src="${e.target.result}" alt="AI Avatar">`;
+document.getElementById("avatarPreview").innerHTML =
+`<img src="${e.target.result}" alt="AI avatar">`;
 
 };
-
 
 reader.readAsDataURL(file);
 
@@ -1209,67 +951,41 @@ reader.readAsDataURL(file);
 
 /* CREATE AI */
 
-function createMyAI(){
+function createAI(){
 
 const name =
-document
-.getElementById("aiName")
-.value
-.trim();
-
+document.getElementById("aiName").value.trim();
 
 const language =
-document
-.getElementById("aiLanguage")
-.value;
-
+document.getElementById("aiLanguage").value;
 
 const personality =
-document
-.getElementById("aiPersonality")
-.value;
-
+document.getElementById("aiPersonality").value;
 
 const instructions =
-document
-.getElementById("aiInstructions")
-.value
-.trim();
-
+document.getElementById("aiInstructions").value.trim();
 
 const watermark =
-document
-.getElementById("watermark")
-.checked;
+document.getElementById("watermark").checked;
 
-
-const avatarInput =
-document
-.getElementById("aiAvatar");
+const avatarFile =
+document.getElementById("aiAvatar").files[0];
 
 
 if(!name){
 
-alert(
-"Please enter a name for your AI."
-);
+alert("Please enter a name for your AI.");
 
 return;
 
 }
 
 
-const file =
-avatarInput.files[0];
+if(avatarFile){
 
+const reader = new FileReader();
 
-if(file){
-
-const reader =
-new FileReader();
-
-
-reader.onload=function(e){
+reader.onload = function(e){
 
 saveAI(
 name,
@@ -1282,8 +998,7 @@ e.target.result
 
 };
 
-
-reader.readAsDataURL(file);
+reader.readAsDataURL(avatarFile);
 
 }else{
 
@@ -1301,7 +1016,7 @@ null
 }
 
 
-/* SAVE AI */
+/* SAVE */
 
 function saveAI(
 name,
@@ -1312,7 +1027,7 @@ watermark,
 avatar
 ){
 
-const ai={
+const ai = {
 
 id:Date.now(),
 
@@ -1331,10 +1046,8 @@ avatar:avatar
 };
 
 
-let ais=
-JSON.parse(
-localStorage.getItem("pocketAIs") || "[]"
-);
+let ais =
+JSON.parse(localStorage.getItem("pocketAIs") || "[]");
 
 
 ais.push(ai);
@@ -1350,7 +1063,7 @@ JSON.stringify(ais)
 }catch(error){
 
 alert(
-"Storage is full. Please use a smaller avatar image."
+"Storage is full. Try a smaller avatar image."
 );
 
 return;
@@ -1358,69 +1071,44 @@ return;
 }
 
 
-/* RESET */
+document.getElementById("aiName").value="";
 
-document
-.getElementById("aiName")
-.value="";
+document.getElementById("aiInstructions").value="";
 
+document.getElementById("aiAvatar").value="";
 
-document
-.getElementById("aiInstructions")
-.value="";
+document.getElementById("avatarPreview").innerHTML="🤖";
 
 
-document
-.getElementById("aiAvatar")
-.value="";
-
-
-document
-.getElementById("avatarPreview")
-.innerHTML="🤖";
-
-
-alert(
-"🎉 "+name+" has been created!"
-);
-
+alert("🎉 " + name + " created!");
 
 showMyAIs();
 
 }
 
 
-/* LOAD AI LIST */
+/* LOAD */
 
 function loadAIs(){
 
-const container =
+const list =
 document.getElementById("aiList");
 
-
 const ais =
-JSON.parse(
-localStorage.getItem("pocketAIs") || "[]"
-);
+JSON.parse(localStorage.getItem("pocketAIs") || "[]");
 
 
-if(ais.length===0){
+if(ais.length === 0){
 
-container.innerHTML=`
+list.innerHTML = `
 
 <div class="empty">
 
-<div style="font-size:50px;">
-🤖
-</div>
+<div style="font-size:50px">🤖</div>
 
-<h3>
-No AI created yet
-</h3>
+<h3>No AI created yet</h3>
 
-<p>
-Create your first personal AI.
-</p>
+<p>Create your first PocketAI.</p>
 
 <br>
 
@@ -1428,9 +1116,7 @@ Create your first personal AI.
 class="primary"
 onclick="showBuilder()"
 >
-
 + Create AI
-
 </button>
 
 </div>
@@ -1442,43 +1128,36 @@ return;
 }
 
 
-container.innerHTML="";
+list.innerHTML="";
 
 
-ais.forEach(ai=>{
+ais.forEach(ai => {
 
 const card =
 document.createElement("div");
 
-
 card.className="ai-card";
 
 
-let avatarHTML="🤖";
-
+let avatar="🤖";
 
 if(ai.avatar){
 
-avatarHTML=
-`<img src="${ai.avatar}" alt="AI Avatar">`;
+avatar =
+`<img src="${ai.avatar}" alt="AI avatar">`;
 
 }
 
 
-card.innerHTML=`
+card.innerHTML = `
 
 <div class="ai-icon">
-
-${avatarHTML}
-
+${avatar}
 </div>
-
 
 <div class="ai-info">
 
-<h3>
-${escapeHTML(ai.name)}
-</h3>
+<h3>${escapeHTML(ai.name)}</h3>
 
 <p>
 ${escapeHTML(ai.language)}
@@ -1488,53 +1167,42 @@ ${escapeHTML(ai.personality)}
 
 </div>
 
-
 <button
 class="open-btn"
 onclick="openAI(${ai.id})"
 >
-
 Open
-
 </button>
-
 
 <button
 class="delete-btn"
 onclick="deleteAI(${ai.id})"
 >
-
 Delete
-
 </button>
 
 `;
 
-
-container.appendChild(card);
+list.appendChild(card);
 
 });
 
 }
 
 
-/* OPEN AI */
+/* OPEN */
 
 function openAI(id){
 
 const ais =
-JSON.parse(
-localStorage.getItem("pocketAIs") || "[]"
-);
+JSON.parse(localStorage.getItem("pocketAIs") || "[]");
 
 
-const ai =
-ais.find(
-item => item.id === id
-);
+currentAI =
+ais.find(ai => ai.id === id);
 
 
-if(!ai){
+if(!currentAI){
 
 alert("AI not found.");
 
@@ -1543,41 +1211,31 @@ return;
 }
 
 
-currentAI=ai;
+hidePages();
+
+document.getElementById("chatPage").style.display="block";
 
 
-hideAll();
+document.getElementById("chatTitle").textContent =
+currentAI.name;
 
+document.getElementById("chatName").textContent =
+currentAI.name;
 
-document
-.getElementById("chatPage")
-.style.display="block";
-
-
-document
-.getElementById("chatAIName")
-.textContent=ai.name;
-
-
-document
-.getElementById("chatPageTitle")
-.textContent=ai.name;
-
-
-document
-.getElementById("chatPersonality")
-.textContent=
-ai.language+" • "+ai.personality;
+document.getElementById("chatDetails").textContent =
+currentAI.language +
+" • " +
+currentAI.personality;
 
 
 const avatar =
 document.getElementById("chatAvatar");
 
 
-if(ai.avatar){
+if(currentAI.avatar){
 
-avatar.innerHTML=
-`<img src="${ai.avatar}" alt="AI Avatar">`;
+avatar.innerHTML =
+`<img src="${currentAI.avatar}" alt="AI avatar">`;
 
 }else{
 
@@ -1586,20 +1244,14 @@ avatar.innerHTML="🤖";
 }
 
 
-/* RESET CHAT */
-
-document
-.getElementById("messages")
-.innerHTML=`
+document.getElementById("messages").innerHTML = `
 
 <div class="message ai-message">
-
 Hello! 👋
 
-I'm ${escapeHTML(ai.name)}.
+I'm ${escapeHTML(currentAI.name)}.
 
-I'm ready to help you.
-
+Your AI profile is loaded and ready.
 </div>
 
 `;
@@ -1610,31 +1262,19 @@ window.scrollTo(0,0);
 }
 
 
-/* DELETE AI */
+/* DELETE */
 
 function deleteAI(id){
 
-if(
-!confirm(
-"Delete this AI?"
-)
-){
-
-return;
-
-}
+if(!confirm("Delete this AI?")) return;
 
 
 let ais =
-JSON.parse(
-localStorage.getItem("pocketAIs") || "[]"
-);
+JSON.parse(localStorage.getItem("pocketAIs") || "[]");
 
 
 ais =
-ais.filter(
-ai => ai.id !== id
-);
+ais.filter(ai => ai.id !== id);
 
 
 localStorage.setItem(
@@ -1648,74 +1288,50 @@ loadAIs();
 }
 
 
-/* CHAT DEMO */
+/* CHAT */
 
 function sendMessage(){
 
 const input =
-document
-.getElementById("messageInput");
-
+document.getElementById("messageInput");
 
 const text =
 input.value.trim();
 
 
-if(!text){
-
-return;
-
-}
+if(!text) return;
 
 
 const messages =
-document
-.getElementById("messages");
+document.getElementById("messages");
 
 
-const userMessage =
+const user =
 document.createElement("div");
 
+user.className="message user-message";
 
-userMessage.className=
-"message user-message";
+user.textContent=text;
 
-
-userMessage.textContent=text;
-
-
-messages.appendChild(
-userMessage
-);
+messages.appendChild(user);
 
 
 input.value="";
 
 
-setTimeout(function(){
-
-const aiMessage =
+const ai =
 document.createElement("div");
 
-
-aiMessage.className=
-"message ai-message";
+ai.className="message ai-message";
 
 
-aiMessage.textContent=
-"🤖 "+currentAI.name+
-" received your message. The real offline AI engine will be connected in a later step.";
+ai.textContent =
+"Your message has been received. " +
+currentAI.name +
+" is waiting for the local AI model to be installed.";
 
 
-messages.appendChild(
-aiMessage
-);
-
-
-messages.scrollTop =
-messages.scrollHeight;
-
-},500);
+messages.appendChild(ai);
 
 
 messages.scrollTop =
@@ -1724,11 +1340,11 @@ messages.scrollHeight;
 }
 
 
-/* ENTER TO SEND */
+/* ENTER */
 
 function handleEnter(event){
 
-if(event.key==="Enter"){
+if(event.key === "Enter"){
 
 sendMessage();
 
@@ -1737,7 +1353,7 @@ sendMessage();
 }
 
 
-/* SECURITY */
+/* SAFE TEXT */
 
 function escapeHTML(text){
 
@@ -1751,7 +1367,6 @@ return div.innerHTML;
 }
 
 </script>
-
 
 </body>
 </html>
